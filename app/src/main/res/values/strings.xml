@@ -9,4 +9,6 @@
     <string name="knowledgeText">How well do you know this word?</string>
     <string name="addUnit">Add Unit</string>
     <string name="deleteUnit">Delete Unit</string>
+    <string name="renameUnit">Rename Unit</string>
+    <string name="manageUnit">Manage Unit</string>
 </resources>

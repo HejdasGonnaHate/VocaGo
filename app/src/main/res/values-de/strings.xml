@@ -5,4 +5,6 @@
     <string name="knowledgeText">Wie gut kennst du das Wort?</string>
     <string name="addUnit">Unit hinzufügen</string>
     <string name="deleteUnit">Unit löschen</string>
+    <string name="renameUnit">Unit umbenennen</string>
+    <string name="manageUnit">Unit verwalten</string>
 </resources>
