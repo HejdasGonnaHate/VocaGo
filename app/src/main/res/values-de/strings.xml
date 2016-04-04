@@ -7,4 +7,6 @@
     <string name="deleteUnit">Unit löschen</string>
     <string name="renameUnit">Unit umbenennen</string>
     <string name="manageUnit">Unit verwalten</string>
+    <string name="deleteuniterror">Es wird mindestends eine Unit benötigt</string>
+    <string name="newUnit">Neue Unit</string>
 </resources>

@@ -1,6 +1,6 @@
 package at.spengergasse.vocago;
 
-public class Word {
+public class Word { //implements Serializable ?
     private String wordNative;
     private String wordForeign;
     private int knowledge;

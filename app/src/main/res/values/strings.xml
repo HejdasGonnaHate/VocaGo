@@ -11,4 +11,6 @@
     <string name="deleteUnit">Delete Unit</string>
     <string name="renameUnit">Rename Unit</string>
     <string name="manageUnit">Manage Unit</string>
+    <string name="deleteuniterror">You need at least one unit</string>
+    <string name="newUnit">New Unit</string>
 </resources>

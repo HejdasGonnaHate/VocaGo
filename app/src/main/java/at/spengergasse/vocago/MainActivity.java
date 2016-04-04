@@ -1,14 +1,7 @@
 package at.spengergasse.vocago;
 
-import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.Editable;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,8 +13,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.security.acl.Group;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public ArrayList<Unit> unitArray = new ArrayList<Unit>();
+    NavigationView navigationView;
+    int selectedUnitIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +42,88 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        fillUnitArray();
     }
 
 
     public void addWordClick(View view){
 
     }
+
+    // Ladet die Units aus dem Ordner in das Array
+    private void fillUnitArray(){
+        try {
+            FileInputStream fio = openFileInput("units.dat");
+            ObjectInputStream ois = new ObjectInputStream(fio);
+            unitArray = (ArrayList<Unit>) ois.readObject();
+        }
+        catch(Exception exc){
+            Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+
+        }
+
+        if(unitArray.size()==0){
+            addUnit(); //Wenn der Ordner leer war, wird eine neue Unit erzeugt
+        }
+       updateUnitList();
+    }
+
+    // Updatet die Liste im Navigation Drawer nach der ArrayList "unitArray"
+    private void updateUnitList(){
+        Menu menu = navigationView.getMenu();
+        menu.removeGroup(R.id.unitMenu);
+        for(Unit u:unitArray){
+            menu.add(R.id.unitMenu,Menu.NONE,Menu.NONE,u.getName());
+        }
+        menu.setGroupCheckable(R.id.unitMenu, true, true);
+
+        for(int i = 0; i < menu.size(); i ++){
+            menu.getItem(i).setIcon(R.drawable.ic_description_24dp);
+        }
+        setSelectedUnit();
+
+        try {
+            FileOutputStream fos = openFileOutput("units.dat",getApplicationContext().MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(unitArray);
+            oos.close();
+        }
+        catch(Exception exc){
+            Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Fügt eine neue Unit hinzu, nach dem Schema: "New Unit", "New Unit (1)", "New Unit (2)"...
+    private void addUnit(){
+        String newName = getString(R.string.newUnit);
+        boolean foundName = false;
+        int i = 1;
+        while (!foundName){
+            foundName = true;
+            for (Unit u:unitArray) {
+                if((u.getName().equals(newName))){
+                    foundName = false;
+                }
+            }
+            if(!foundName){
+                newName = getString(R.string.newUnit) + " (" + i + ")";
+                i++;
+            }
+        }
+        Unit u = new Unit(newName);
+        unitArray.add(u);
+        //TODO save unit in file!
+        updateUnitList();
+    }
+
+    //Setzt das Item im navigation Drawer auf 'selected'
+    private void setSelectedUnit(){
+        navigationView.getMenu().getItem(selectedUnitIndex).setChecked(true);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -87,12 +166,36 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.addUnit) {
-            //TODO add unit programmieren
-            Toast.makeText(getApplicationContext(),"Add Unit //TODO",Toast.LENGTH_SHORT).show();
+            addUnit();
         }
         else if (id == R.id.deleteUnit) {
-            //TODO delete unit programmieren
-            Toast.makeText(getApplicationContext(),"Delete Unit //TODO",Toast.LENGTH_SHORT).show();
+            if(unitArray.size()>1) {
+                unitArray.remove(selectedUnitIndex);
+                if (selectedUnitIndex == unitArray.size()) {
+                    selectedUnitIndex--;
+                }
+                updateUnitList();
+            }
+            else{
+                Toast.makeText(getApplicationContext(),R.string.deleteuniterror,Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (id == R.id.renameUnit) {
+            //TODO rename unit programmieren
+            Toast.makeText(getApplicationContext(),"Rename Unit //TODO",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Menu menu = navigationView.getMenu();
+            for(int i = 0; i < menu.size(); i ++){
+                if(menu.getItem(i).equals(item)){
+                    selectedUnitIndex = i;
+                    break;
+                }
+            }
+            setSelectedUnit();
+            Toast.makeText(getApplicationContext(),""+selectedUnitIndex,Toast.LENGTH_SHORT).show();
+
+            //TODO update unit, neue unit wurde ausgewählt
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
