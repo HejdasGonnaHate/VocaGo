@@ -9,5 +9,5 @@
     <string name="manageUnit">Unit verwalten</string>
     <string name="deleteuniterror">Es wird mindestends eine Unit benötigt</string>
     <string name="newUnit">Neue Unit</string>
-    <string name="renameError">Bitte einen Namen mit weniger als 17 Buchstanben auswählen</string>
+    <string name="renameError">Bitte einen Namen mit weniger als 17 Buchstaben auswählen</string>
 </resources>
