@@ -13,4 +13,5 @@
     <string name="manageUnit">Manage Unit</string>
     <string name="deleteuniterror">You need at least one unit</string>
     <string name="newUnit">New Unit</string>
+    <string name="renameError">Please select a neme shorter than 17 characters</string>
 </resources>

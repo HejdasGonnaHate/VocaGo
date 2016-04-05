@@ -1,7 +1,10 @@
 package at.spengergasse.vocago;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
@@ -180,9 +184,33 @@ public class MainActivity extends AppCompatActivity
             }
         }
         else if (id == R.id.renameUnit) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle(getString(R.string.renameUnit));
+            final EditText input = new EditText(this);
+            input.setText(unitArray.get(selectedUnitIndex).getName());
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(input);
 
-            //TODO rename unit programmieren
-            Toast.makeText(getApplicationContext(),"Rename Unit //TODO",Toast.LENGTH_SHORT).show();
+            // Set up the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                   boolean b = unitArray.get(selectedUnitIndex).setName(input.getText().toString());
+                    if(!b){
+                        Toast.makeText(getApplicationContext(),R.string.renameError,Toast.LENGTH_SHORT).show();
+                    }
+                    updateUnitList();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+
         }
         else{
             Menu menu = navigationView.getMenu();
@@ -193,7 +221,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }
             setSelectedUnit();
-            Toast.makeText(getApplicationContext(),""+selectedUnitIndex,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),""+selectedUnitIndex,Toast.LENGTH_SHORT).show();
 
             //TODO update unit, neue unit wurde ausgewählt
         }
