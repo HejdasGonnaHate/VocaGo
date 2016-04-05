@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,18 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.security.acl.Group;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
@@ -35,6 +31,8 @@ public class MainActivity extends AppCompatActivity
     public ArrayList<Unit> unitArray = new ArrayList<Unit>();
     NavigationView navigationView;
     int selectedUnitIndex = 0;
+    int width; //Die Displaybreite
+    int height; //Die Displayhöhe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +51,14 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Setzt die Variablen width und height ja auf die Displaybreite und Displayhöhe des Handys
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        height = displaymetrics.heightPixels;
+        width = displaymetrics.widthPixels;
+
         fillUnitArray();
+
     }
 
 
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             oos.close();
         }
         catch(Exception exc){
-            Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -122,7 +127,6 @@ public class MainActivity extends AppCompatActivity
         }
         Unit u = new Unit(newName);
         unitArray.add(u);
-        //TODO save unit in file!
         updateUnitList();
     }
 
@@ -192,7 +196,7 @@ public class MainActivity extends AppCompatActivity
             builder.setTitle(getString(R.string.renameUnit));
 
             FrameLayout layout = new FrameLayout(getApplicationContext());
-            layout.setPadding(40,10,40,0); //In Pixel, Automatisch anpassend je nach Bildschirmgröße?
+            layout.setPadding(28800/width,7200/width,28800/width,0);
 
             final EditText input = new EditText(this);
             input.setText(unitArray.get(selectedUnitIndex).getName());
@@ -206,10 +210,7 @@ public class MainActivity extends AppCompatActivity
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    boolean b = unitArray.get(selectedUnitIndex).setName(input.getText().toString());
-                    if (!b) {
-                        Toast.makeText(getApplicationContext(), R.string.renameError, Toast.LENGTH_SHORT).show();
-                    }
+                    unitArray.get(selectedUnitIndex).setName(input.getText().toString());
                     updateUnitList();
                 }
             });
@@ -220,7 +221,6 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             builder.show();
-
         }
         else{
             Menu menu = navigationView.getMenu();

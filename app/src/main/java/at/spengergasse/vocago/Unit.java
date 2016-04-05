@@ -15,13 +15,7 @@ public class Unit implements Serializable{
         return name;
     }
 
-    public boolean setName(String name){
-        if(name.length()>17){
-            return false;
-        }
-        else{
-            this.name = name;
-            return true;
-        }
+    public void setName(String name){
+       this.name = name;
     }
 }
