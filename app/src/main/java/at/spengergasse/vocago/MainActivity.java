@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         }
         catch(Exception exc){
             Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
-
         }
 
         if(unitArray.size()==0){
@@ -181,6 +180,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
         else if (id == R.id.renameUnit) {
+
             //TODO rename unit programmieren
             Toast.makeText(getApplicationContext(),"Rename Unit //TODO",Toast.LENGTH_SHORT).show();
         }
