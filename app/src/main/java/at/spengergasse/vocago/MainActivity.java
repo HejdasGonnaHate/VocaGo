@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,8 +16,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
@@ -24,6 +29,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +69,59 @@ public class MainActivity extends AppCompatActivity
 
 
     public void addWordClick(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.addWord));
 
+        FrameLayout layout = new FrameLayout(getApplicationContext());
+        layout.setPadding(28800 / width, 7200 / width, 28800 / width, 0);
+
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setGravity(Gravity.CENTER);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.setMargins(0, 28800 / width, 0, 0);
+
+        final EditText inputForeign = new EditText(this);
+        inputForeign.setHint(getString(R.string.foreignWord));
+        linearLayout.addView(inputForeign);
+
+        final EditText inputTranslation = new EditText(this);
+        inputTranslation.setHint(getString(R.string.translation));
+        linearLayout.addView(inputTranslation);
+
+        List<CharSequence> unitNameList= new ArrayList<>();
+        for(Unit u : unitArray) {
+            unitNameList.add(u.getName());
+        }
+        FrameLayout frameLayout = new FrameLayout(getApplicationContext());
+        frameLayout.setPadding(72000 / width, 0, 72000 / width, 0);
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList);
+        Spinner inputUnit = new Spinner(this);
+        inputUnit.setAdapter(adapter);
+        inputUnit.setSelection(selectedUnitIndex);
+        frameLayout.addView(inputUnit);
+        linearLayout.addView(frameLayout);
+
+        layout.addView(linearLayout);
+
+        builder.setView(layout);
+
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO
+            }
+        });
+        builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
     }
 
     // Ladet die Units aus dem Ordner in das Array
@@ -214,7 +272,7 @@ public class MainActivity extends AppCompatActivity
                     updateUnitList();
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
