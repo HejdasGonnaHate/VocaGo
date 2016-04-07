@@ -26,62 +26,129 @@
     </android.support.design.widget.AppBarLayout>
 
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|top"
-        android:text="@string/knowledgeText"
-        android:layout_marginTop="80dp"
-        android:textSize="22dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="110dp"
+        android:layout_height="match_parent"
         android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/knowledgeText"
+            android:layout_marginTop="80dp"
+            android:textSize="22dp"
+            android:textAlignment="center"
+        />
 
-        >
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pointsZero"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsZero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorRed"
+                android:layout_marginRight="30dp"
+                />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorOrange"
+                android:layout_marginRight="30dp"
+                />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorLime"
+                android:layout_marginRight="30dp"
+                />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsThree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorGreen"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="Irgendein Wort"
+            android:textSize="22dp"
+            android:gravity="center"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/border_textview"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorRed"
-            android:layout_marginRight="30dp"
+            android:text="="
+            android:textSize="22dp"
+            android:layout_marginTop="10dp"
             />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pointsOne"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textViewBottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorOrange"
-            android:layout_marginRight="30dp"
-            />
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pointsTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorLime"
-            android:layout_marginRight="30dp"
-            />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pointsThree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorGreen"
-            />
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text=""
+            android:textSize="22dp"
+            android:gravity="center"
+            android:background="@drawable/border_textview"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="10dp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+                <Button
+                    android:id="@+id/nextButton"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/next"
+                    android:layout_gravity="center|bottom"
+                    android:layout_marginBottom="10dp"
+                    android:onClick="nextClick"/>
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/evaluation"
+                    android:layout_gravity="center|bottom"
+                    android:onClick="evaluationClick"/>
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_96dp"
-        android:onClick="addWordClick"/>
+        android:src="@drawable/ic_add_24dp"
+        android:onClick="addWordClick"
+        />
 
 
 

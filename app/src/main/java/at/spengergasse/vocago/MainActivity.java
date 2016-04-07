@@ -16,14 +16,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Button nextButton = (Button) findViewById(R.id.nextButton);
+
         //Setzt die Variablen width und height ja auf die Displaybreite und Displayhöhe des Handys
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -64,75 +68,91 @@ public class MainActivity extends AppCompatActivity
         width = displaymetrics.widthPixels;
 
         fillUnitArray();
-
+        nextButton.performClick();
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //Fenster für das erstellen eines neuen Wortes
     public void addWordClick(View view){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.addWord));
+        AlertDialog.Builder builder = new AlertDialog.Builder(this); //Fenster wird erstellt
+        builder.setTitle(getString(R.string.addWord)); //Titel wird gesetzt
 
-        FrameLayout layout = new FrameLayout(getApplicationContext());
-        layout.setPadding(28800 / width, 7200 / width, 28800 / width, 0);
+        FrameLayout layout = new FrameLayout(getApplicationContext()); //Framelayout für das Padding der Elemente
+        layout.setPadding(28800 / width, 7200 / width, 28800 / width, 0); //Padding des FrameLayout
 
-        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        linearLayout.setGravity(Gravity.CENTER);
+        LinearLayout linearLayout = new LinearLayout(getApplicationContext()); //LinearLayout zum anordnen der Elemente
+        linearLayout.setOrientation(LinearLayout.VERTICAL); //Vertikale Orientierung für das Linear Layout
+        linearLayout.setGravity(Gravity.CENTER); //Die Objekte werden zentriert
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.setMargins(0, 28800 / width, 0, 0);
+        final EditText inputForeign = new EditText(this); //Textfeld zum eingeben des Wortes
+        inputForeign.setHint(getString(R.string.foreignWord)); //"Hintergrundschrift" des Textfeldes setzen
+        linearLayout.addView(inputForeign); // Das Textfeld dem LinearLayout hinzufügen
 
-        final EditText inputForeign = new EditText(this);
-        inputForeign.setHint(getString(R.string.foreignWord));
-        linearLayout.addView(inputForeign);
 
-        final EditText inputTranslation = new EditText(this);
+        FrameLayout frameLayoutTrans = new FrameLayout(getApplicationContext()); //Neues Framelayout für den Abstand des Mittleren edittexts nach oben und unten
+        frameLayoutTrans.setPadding(0,14400/width,0,3600/width); //Setzten des Abstandes
+
+        final EditText inputTranslation = new EditText(this); //Textfeld zum eingeben der Übersetzung
         inputTranslation.setHint(getString(R.string.translation));
-        linearLayout.addView(inputTranslation);
+        frameLayoutTrans.addView(inputTranslation); //Textfeld dem FrameLayout hinzufügen
+        linearLayout.addView(frameLayoutTrans); //FrameLayout dem LinearLayout hinzufügen
 
-        List<CharSequence> unitNameList= new ArrayList<>();
+        List<CharSequence> unitNameList= new ArrayList<>(); //Liste mit den Namen der Units
         for(Unit u : unitArray) {
-            unitNameList.add(u.getName());
+            unitNameList.add(u.getName()); //Liste wird befüllt
         }
-        FrameLayout frameLayout = new FrameLayout(getApplicationContext());
-        frameLayout.setPadding(72000 / width, 0, 72000 / width, 0);
+        FrameLayout frameLayoutSpinner = new FrameLayout(getApplicationContext()); //Neues Framelayout für die ComboBox mit den Unitname
+        frameLayoutSpinner.setPadding(72000 / width, 0, 72000 / width, 0); //Abstand der Combobox nach links und rechts
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList);
-        Spinner inputUnit = new Spinner(this);
-        inputUnit.setAdapter(adapter);
-        inputUnit.setSelection(selectedUnitIndex);
-        frameLayout.addView(inputUnit);
-        linearLayout.addView(frameLayout);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList); //Adapter erstellen, um die Daten in die ComboBox zu übertragen und ein Layout für die Items zu setzen
+        final Spinner inputUnit = new Spinner(this); //Neuen Spinner (ComboBox) erstellen
+        inputUnit.setAdapter(adapter); //Adapter für den Spinner setzen
+        inputUnit.setSelection(selectedUnitIndex); //Die Liste als source für den Spinner setzen
+        frameLayoutSpinner.addView(inputUnit); //Spinner dem FrameLayout hinzufügen
+        linearLayout.addView(frameLayoutSpinner);  //FrameLayout dem LinearLayout hinzufügen
 
-        layout.addView(linearLayout);
+        layout.addView(linearLayout); //LinearLayout dem äußersten FrameLayout hinzufügen
 
-        builder.setView(layout);
+        builder.setView(layout); //äußerstes FrameLayout als Anzeige im Fenster setzen
 
-        // Set up the buttons
+        //Listener für dem "OK" Button
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //TODO
             }
         });
+
+        //Listener für den "Cancel" Button
         builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+                dialog.cancel(); //Fenster schließen
             }
         });
-        builder.show();
+        builder.show(); //Fenster anzeigen
+    }
+
+    public void nextClick(View view){
+        TextView textTop = (TextView)findViewById(R.id.textViewTop);
+        TextView textBottom = (TextView)findViewById(R.id.textViewBottom);
+    }
+
+    public void evaluationClick(View view){
+
     }
 
     // Ladet die Units aus dem Ordner in das Array
     private void fillUnitArray(){
         try {
             FileInputStream fio = openFileInput("units.dat");
-            ObjectInputStream ois = new ObjectInputStream(fio);
+            ObjectInputStream ois = new ObjectInputStream(fio); //units.dat wird eingelesen und als unitArray gesetzt
             unitArray = (ArrayList<Unit>) ois.readObject();
         }
         catch(Exception exc){
-            Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
         }
 
         if(unitArray.size()==0){
@@ -143,21 +163,21 @@ public class MainActivity extends AppCompatActivity
 
     // Updatet die Liste im Navigation Drawer nach der ArrayList "unitArray"
     private void updateUnitList(){
-        Menu menu = navigationView.getMenu();
-        menu.removeGroup(R.id.unitMenu);
+        Menu menu = navigationView.getMenu(); //Das aktuelle Menü des Navigation Drawers wird geholt
+        menu.removeGroup(R.id.unitMenu); //Alle Units werden aus dem Menü geschmissen
         for(Unit u:unitArray){
-            menu.add(R.id.unitMenu,Menu.NONE,Menu.NONE,u.getName());
+            menu.add(R.id.unitMenu,Menu.NONE,Menu.NONE,u.getName()); //Jede Unit, wird mit ihrem Namen in das Menü als Item eingefügt
         }
-        menu.setGroupCheckable(R.id.unitMenu, true, true);
+        menu.setGroupCheckable(R.id.unitMenu, true, true); //Das Menü wird als "checkable" gesetzt, man kann also eine Unit Auswählen und nicht nur draufklicken
 
         for(int i = 0; i < menu.size(); i ++){
-            menu.getItem(i).setIcon(R.drawable.ic_description_24dp);
+            menu.getItem(i).setIcon(R.drawable.ic_description_24dp); //Den Items, also den Units wird ein Icon hinzugefügt
         }
-        setSelectedUnit();
+        setSelectedUnit(); //Die aktuell ausgewählte Unit wird auch im Menü als ausgewählt gesetzt
 
         try {
             FileOutputStream fos = openFileOutput("units.dat",getApplicationContext().MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);   //Die Liste wird wieder abgespeichert und überschreibt die Alte
             oos.writeObject(unitArray);
             oos.close();
         }
@@ -168,13 +188,13 @@ public class MainActivity extends AppCompatActivity
 
     // Fügt eine neue Unit hinzu, nach dem Schema: "New Unit", "New Unit (1)", "New Unit (2)"...
     private void addUnit(){
-        String newName = getString(R.string.newUnit);
+        String newName = getString(R.string.newUnit); //Je nach ausgewählter Sprache, wird die neue Unit anders genannt
         boolean foundName = false;
         int i = 1;
         while (!foundName){
             foundName = true;
             for (Unit u:unitArray) {
-                if((u.getName().equals(newName))){
+                if((u.getName().equals(newName))){ //Schleifen um den nächsten Unitnamen herauszufinden
                     foundName = false;
                 }
             }
@@ -183,9 +203,9 @@ public class MainActivity extends AppCompatActivity
                 i++;
             }
         }
-        Unit u = new Unit(newName);
-        unitArray.add(u);
-        updateUnitList();
+        Unit u = new Unit(newName); //Neue Unit mit dem zuvor automatisch erstellten Namen erzeugen
+        unitArray.add(u); //Die Unit der ArrayList hinzufügen
+        updateUnitList(); //Die Anzeige im Navigation Drawer updaten und die Liste speichern
     }
 
     //Setzt das Item im navigation Drawer auf 'selected'
@@ -213,19 +233,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent nextScreen = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(nextScreen);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        Intent nextScreen = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(nextScreen);
+        return true;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -237,6 +247,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.addUnit) {
             addUnit();
         }
+        ////////////////
+        //UNIT LÖSCHEN
         else if (id == R.id.deleteUnit) {
             if(unitArray.size()>1) {
                 unitArray.remove(selectedUnitIndex);
@@ -249,47 +261,51 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(),R.string.deleteuniterror,Toast.LENGTH_SHORT).show();
             }
         }
+        /////////////////
+        //UNIT UMBENENNEN
         else if (id == R.id.renameUnit) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getString(R.string.renameUnit));
+            AlertDialog.Builder builder = new AlertDialog.Builder(this); //Neues Fenster
+            builder.setTitle(getString(R.string.renameUnit)); //Titel des Fensters setzen
 
-            FrameLayout layout = new FrameLayout(getApplicationContext());
-            layout.setPadding(28800/width,7200/width,28800/width,0);
+            FrameLayout layout = new FrameLayout(getApplicationContext()); //Neues FrameLayout erstellen um ein Padding für das Textfeld zu haben
+            layout.setPadding(28800/width,7200/width,28800/width,0); //Padding je nach Bildschirmgröße setzen
 
-            final EditText input = new EditText(this);
-            input.setText(unitArray.get(selectedUnitIndex).getName());
-            input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(17)});
+            final EditText input = new EditText(this); //Neues Textfeld erstellen
+            input.setText(unitArray.get(selectedUnitIndex).getName()); //Den Text auf den Namen der aktuellen Unit setzen
+            input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(17)}); //Maximale Textlönge auf 17 Zeichen setzen
 
-            layout.addView(input);
+            layout.addView(input);//Textfeld dem layout hinzufügen
 
-            builder.setView(layout);
+            builder.setView(layout);//Layout als Anzeige des Fensters setzen
 
-            // Set up the buttons
+            //OK Button listener
             builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    unitArray.get(selectedUnitIndex).setName(input.getText().toString());
+                    unitArray.get(selectedUnitIndex).setName(input.getText().toString()); //Änderungen übernehmen und alles updaten
                     updateUnitList();
                 }
             });
+            //Abbrechen Button listener
             builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
+                    dialog.cancel(); //Änderungen verwerfen
                 }
             });
-            builder.show();
+            builder.show(); //Fenster anzeigen
         }
+        //////////////
+        //Eine Unit wurde ausgewählt
         else{
+            //Der index für die aktuell ausgewählte Unit wird geändert
             Menu menu = navigationView.getMenu();
-            for(int i = 0; i < menu.size(); i ++){
-                if(menu.getItem(i).equals(item)){
-                    selectedUnitIndex = i;
+            for(int i = 0; i < menu.size(); i ++){ //Alle Items des Menüs durchgehen
+                if(menu.getItem(i).equals(item)){ //Wenn das ausgewählte Item gleich dem Item in der Liste ist
+                    selectedUnitIndex = i; //wird die Indexvarialbe geändert
                     break;
                 }
             }
-            setSelectedUnit();
-            //Toast.makeText(getApplicationContext(),""+selectedUnitIndex,Toast.LENGTH_SHORT).show();
 
             //TODO update unit, neue unit wurde ausgewählt
         }
