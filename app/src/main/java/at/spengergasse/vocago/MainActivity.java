@@ -25,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -41,6 +40,10 @@ public class MainActivity extends AppCompatActivity
     int selectedUnitIndex = 0;
     int width; //Die Displaybreite
     int height; //Die Displayhöhe
+    TextView textTop;
+    TextView textBottom;
+    Word currentWord; //Das aktuelle Wort
+    boolean bothWords = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
+
+        textTop = (TextView)findViewById(R.id.textViewTop);
+        textBottom = (TextView)findViewById(R.id.textViewBottom);
 
         fillUnitArray();
         nextButton.performClick();
@@ -121,7 +127,10 @@ public class MainActivity extends AppCompatActivity
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //TODO
+                Word word = new Word(inputTranslation.getText().toString(),inputForeign.getText().toString(),0);
+                unitArray.get(selectedUnitIndex).addWord(word);
+                updateUnitList();
+                Toast.makeText(getApplicationContext(),"'"+word.getWordForeign()+"' "+getString(R.string.unitAddText),Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,12 +145,46 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void nextClick(View view){
-        TextView textTop = (TextView)findViewById(R.id.textViewTop);
-        TextView textBottom = (TextView)findViewById(R.id.textViewBottom);
+        if(unitArray.get(selectedUnitIndex).getWordArray().size() > 0){
+           if(bothWords){
+               currentWord = unitArray.get(selectedUnitIndex).getRandomWord();
+               textTop.setText(currentWord.getWordForeign());
+               textBottom.setText("");
+               bothWords = false;
+           }
+           else{
+               textBottom.setText(currentWord.getWordNative());
+               bothWords = true;
+           }
+        }
     }
 
     public void evaluationClick(View view){
 
+    }
+
+    public void feedbackRedClick(View view){
+        if(currentWord != null){
+            currentWord.setKnowledge(0);
+        }
+    }
+
+    public void feedbackOrangeClick(View view){
+        if(currentWord != null){
+            currentWord.setKnowledge(1);
+        }
+    }
+
+    public void feedbackLimeClick(View view){
+        if(currentWord != null){
+            currentWord.setKnowledge(2);
+        }
+    }
+
+    public void feedbackGreenClick(View view){
+        if(currentWord != null){
+            currentWord.setKnowledge(3);
+        }
     }
 
     // Ladet die Units aus dem Ordner in das Array
@@ -206,6 +249,7 @@ public class MainActivity extends AppCompatActivity
         Unit u = new Unit(newName); //Neue Unit mit dem zuvor automatisch erstellten Namen erzeugen
         unitArray.add(u); //Die Unit der ArrayList hinzufügen
         updateUnitList(); //Die Anzeige im Navigation Drawer updaten und die Liste speichern
+        Toast.makeText(getApplicationContext(),"'"+newName+"' "+getString(R.string.unitAddText),Toast.LENGTH_SHORT).show();
     }
 
     //Setzt das Item im navigation Drawer auf 'selected'
@@ -251,11 +295,13 @@ public class MainActivity extends AppCompatActivity
         //UNIT LÖSCHEN
         else if (id == R.id.deleteUnit) {
             if(unitArray.size()>1) {
+                String name = unitArray.get(selectedUnitIndex).getName();
                 unitArray.remove(selectedUnitIndex);
                 if (selectedUnitIndex == unitArray.size()) {
                     selectedUnitIndex--;
                 }
                 updateUnitList();
+                Toast.makeText(getApplicationContext(),"'"+name+"' "+getString(R.string.unitDeleteText),Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getApplicationContext(),R.string.deleteuniterror,Toast.LENGTH_SHORT).show();

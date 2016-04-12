@@ -22,4 +22,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Wörterliste"
+        android:textSize="22sp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:background="@drawable/border_item_bottom"/>
+
 </LinearLayout>

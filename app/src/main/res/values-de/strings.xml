@@ -17,4 +17,6 @@
     <string name="means">bedeutet</string>
     <string name="next">Weiter</string>
     <string name="evaluation">Auswertung</string>
+    <string name="unitAddText">wurde hinzugefügt</string>
+    <string name="unitDeleteText">wurde gelöscht</string>
 </resources>

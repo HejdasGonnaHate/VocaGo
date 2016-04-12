@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorRed"
                 android:layout_marginRight="30dp"
+                android:onClick="feedbackRedClick"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -61,6 +62,7 @@
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorOrange"
                 android:layout_marginRight="30dp"
+                android:onClick="feedbackOrangeClick"
                 />
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/pointsTwo"
@@ -68,6 +70,7 @@
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorLime"
                 android:layout_marginRight="30dp"
+                android:onClick="feedbackLimeClick"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -75,6 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorGreen"
+                android:onClick="feedbackGreenClick"
                 />
         </LinearLayout>
 
@@ -84,7 +88,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text="Irgendein Wort"
             android:textSize="22dp"
             android:gravity="center"
             android:layout_marginLeft="50dp"
@@ -106,7 +109,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:text=""
             android:textSize="22dp"
             android:gravity="center"
             android:background="@drawable/border_textview"

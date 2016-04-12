@@ -21,5 +21,7 @@
     <string name="means">means</string>
     <string name="next">Next</string>
     <string name="evaluation">Evaluation</string>
+    <string name="unitAddText">has been added</string>
+    <string name="unitDeleteText">has been deleted</string>
 
 </resources>
