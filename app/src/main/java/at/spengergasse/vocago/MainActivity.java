@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -74,11 +75,46 @@ public class MainActivity extends AppCompatActivity
         textBottom = (TextView)findViewById(R.id.textViewBottom);
 
         fillUnitArray();
-        nextButton.performClick();
     }
 
+    public void makeToast(String text){
+        Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void addCheckmark(){
+        ImageView checkBox = (ImageView) findViewById(R.id.checkBox);
+        if(currentWord!=null){
+            int k = currentWord.getKnowledge();
+            int coordinatesY = (int) findViewById(R.id.pointsZero).getY()+findViewById(R.id.pointsZero).getHeight()-checkBox.getHeight();
+            if(k==0){
+                checkBox.setX(findViewById(R.id.pointsZero).getX() + findViewById(R.id.pointsZero).getWidth() - checkBox.getWidth());
+                checkBox.setY(coordinatesY);
+            }
+            else if(k==1){
+                checkBox.setX(findViewById(R.id.pointsOne).getX() + findViewById(R.id.pointsOne).getWidth() - checkBox.getWidth());
+                checkBox.setY(coordinatesY);
+            }
+            else if(k==2){
+                checkBox.setX(findViewById(R.id.pointsTwo).getX() + findViewById(R.id.pointsTwo).getWidth() - checkBox.getWidth());
+                checkBox.setY(coordinatesY);
+            }
+            else if(k==3){
+                checkBox.setX(findViewById(R.id.pointsThree).getX() + findViewById(R.id.pointsThree).getWidth() - checkBox.getWidth());
+                checkBox.setY(coordinatesY);
+            }
+            if(!(checkBox.getX()==0 && checkBox.getY()==0)){
+                checkBox.setVisibility(View.VISIBLE);
+            }
+            checkBox.bringToFront();
+            updateUnitList();
+        }
+        else{
+            checkBox.setVisibility(View.INVISIBLE);
+        }
+    }
+
 
     //Fenster für das erstellen eines neuen Wortes
     public void addWordClick(View view){
@@ -130,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 Word word = new Word(inputTranslation.getText().toString(),inputForeign.getText().toString(),0);
                 unitArray.get(selectedUnitIndex).addWord(word);
                 updateUnitList();
-                Toast.makeText(getApplicationContext(),"'"+word.getWordForeign()+"' "+getString(R.string.unitAddText),Toast.LENGTH_SHORT).show();
+                makeToast("'"+word.getWordForeign()+"' "+getString(R.string.unitAddText));
             }
         });
 
@@ -151,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                textTop.setText(currentWord.getWordForeign());
                textBottom.setText("");
                bothWords = false;
+               addCheckmark();
            }
            else{
                textBottom.setText(currentWord.getWordNative());
@@ -166,24 +203,28 @@ public class MainActivity extends AppCompatActivity
     public void feedbackRedClick(View view){
         if(currentWord != null){
             currentWord.setKnowledge(0);
+            addCheckmark();
         }
     }
 
     public void feedbackOrangeClick(View view){
         if(currentWord != null){
             currentWord.setKnowledge(1);
+            addCheckmark();
         }
     }
 
     public void feedbackLimeClick(View view){
         if(currentWord != null){
             currentWord.setKnowledge(2);
+            addCheckmark();
         }
     }
 
     public void feedbackGreenClick(View view){
         if(currentWord != null){
             currentWord.setKnowledge(3);
+            addCheckmark();
         }
     }
 
@@ -249,7 +290,7 @@ public class MainActivity extends AppCompatActivity
         Unit u = new Unit(newName); //Neue Unit mit dem zuvor automatisch erstellten Namen erzeugen
         unitArray.add(u); //Die Unit der ArrayList hinzufügen
         updateUnitList(); //Die Anzeige im Navigation Drawer updaten und die Liste speichern
-        Toast.makeText(getApplicationContext(),"'"+newName+"' "+getString(R.string.unitAddText),Toast.LENGTH_SHORT).show();
+        makeToast("'"+newName+"' "+getString(R.string.unitAddText));
     }
 
     //Setzt das Item im navigation Drawer auf 'selected'
@@ -301,10 +342,10 @@ public class MainActivity extends AppCompatActivity
                     selectedUnitIndex--;
                 }
                 updateUnitList();
-                Toast.makeText(getApplicationContext(),"'"+name+"' "+getString(R.string.unitDeleteText),Toast.LENGTH_SHORT).show();
+                makeToast("'" + name + "' " + getString(R.string.unitDeleteText));
             }
             else{
-                Toast.makeText(getApplicationContext(),R.string.deleteuniterror,Toast.LENGTH_SHORT).show();
+                makeToast(getString(R.string.deleteuniterror));
             }
         }
         /////////////////
@@ -353,7 +394,10 @@ public class MainActivity extends AppCompatActivity
                 }
             }
 
-            //TODO update unit, neue unit wurde ausgewählt
+            textTop.setText("");
+            textBottom.setText("");
+            currentWord = null;
+            addCheckmark();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -19,11 +19,10 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
+
 
 
     <LinearLayout
@@ -41,47 +40,59 @@
             android:textAlignment="center"
         />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/pointsZero"
+            <ImageView
+                android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorRed"
-                android:layout_marginRight="30dp"
-                android:onClick="feedbackRedClick"
+                android:src="@drawable/ic_check_box_24dp"
+                android:visibility="invisible"
                 />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/pointsOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorOrange"
-                android:layout_marginRight="30dp"
-                android:onClick="feedbackOrangeClick"
-                />
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/pointsTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorLime"
-                android:layout_marginRight="30dp"
-                android:onClick="feedbackLimeClick"
-                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/pointsThree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:backgroundTint="@color/colorGreen"
-                android:onClick="feedbackGreenClick"
-                />
-        </LinearLayout>
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/pointsZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorRed"
+                    android:layout_marginRight="30dp"
+                    android:onClick="feedbackRedClick"
+                    />
 
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/pointsOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorOrange"
+                    android:layout_marginRight="30dp"
+                    android:onClick="feedbackOrangeClick"
+                    />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/pointsTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorLime"
+                    android:layout_marginRight="30dp"
+                    android:onClick="feedbackLimeClick"
+                    />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/pointsThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorGreen"
+                    android:onClick="feedbackGreenClick"
+                    />
+            </LinearLayout>
+        </FrameLayout>
         <TextView
             android:id="@+id/textViewTop"
             android:layout_width="match_parent"
@@ -151,6 +162,8 @@
         android:src="@drawable/ic_add_24dp"
         android:onClick="addWordClick"
         />
+
+
 
 
 

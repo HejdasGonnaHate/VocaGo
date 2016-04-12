@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,14 +22,27 @@
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Wörterliste"
-        android:textSize="22sp"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp"
-        android:background="@drawable/border_item_bottom"/>
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/border_item_bottom">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Wörterliste"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_right_24dp"
+            android:paddingRight="10dp"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>
