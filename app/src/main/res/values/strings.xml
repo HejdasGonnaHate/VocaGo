@@ -23,5 +23,6 @@
     <string name="evaluation">Evaluation</string>
     <string name="unitAddText">has been added</string>
     <string name="unitDeleteText">has been deleted</string>
+    <string name="title_activity_wordlist">wordListActivity</string>
 
 </resources>

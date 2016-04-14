@@ -36,7 +36,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public ArrayList<Unit> unitArray = new ArrayList<Unit>();
+    public static ArrayList<Unit> unitArray = new ArrayList<Unit>();
     NavigationView navigationView;
     int selectedUnitIndex = 0;
     int width; //Die Displaybreite
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity
     public void makeToast(String text){
         Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
     }
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -164,9 +165,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Word word = new Word(inputTranslation.getText().toString(),inputForeign.getText().toString(),0);
-                unitArray.get(selectedUnitIndex).addWord(word);
+                unitArray.get(inputUnit.getSelectedItemPosition()).addWord(word);
                 updateUnitList();
-                makeToast("'"+word.getWordForeign()+"' "+getString(R.string.unitAddText));
+                makeToast("'" + word.getWordForeign() + "' " + getString(R.string.unitAddText));
             }
         });
 
@@ -290,7 +291,7 @@ public class MainActivity extends AppCompatActivity
         Unit u = new Unit(newName); //Neue Unit mit dem zuvor automatisch erstellten Namen erzeugen
         unitArray.add(u); //Die Unit der ArrayList hinzufügen
         updateUnitList(); //Die Anzeige im Navigation Drawer updaten und die Liste speichern
-        makeToast("'"+newName+"' "+getString(R.string.unitAddText));
+        makeToast("'" + newName + "' " + getString(R.string.unitAddText));
     }
 
     //Setzt das Item im navigation Drawer auf 'selected'
@@ -398,6 +399,7 @@ public class MainActivity extends AppCompatActivity
             textBottom.setText("");
             currentWord = null;
             addCheckmark();
+            bothWords = true;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
