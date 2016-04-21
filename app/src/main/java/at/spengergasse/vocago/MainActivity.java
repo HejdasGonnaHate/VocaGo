@@ -165,9 +165,10 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Word word = new Word(inputTranslation.getText().toString(),inputForeign.getText().toString(),0);
-                unitArray.get(inputUnit.getSelectedItemPosition()).addWord(word);
+                boolean b = unitArray.get(inputUnit.getSelectedItemPosition()).addWord(word);
+                if(b) makeToast("'" + word.getWordForeign() + "' " + getString(R.string.unitAddText));
+                else makeToast(getString(R.string.addWordError));
                 updateUnitList();
-                makeToast("'" + word.getWordForeign() + "' " + getString(R.string.unitAddText));
             }
         });
 
@@ -342,6 +343,11 @@ public class MainActivity extends AppCompatActivity
                 if (selectedUnitIndex == unitArray.size()) {
                     selectedUnitIndex--;
                 }
+                textTop.setText("");
+                textBottom.setText("");
+                currentWord = null;
+                addCheckmark();
+                bothWords = true;
                 updateUnitList();
                 makeToast("'" + name + "' " + getString(R.string.unitDeleteText));
             }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VocaGo</string>
+    <string name="app_name">VocaGO</string>
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -23,6 +23,9 @@
     <string name="evaluation">Evaluation</string>
     <string name="unitAddText">has been added</string>
     <string name="unitDeleteText">has been deleted</string>
-    <string name="title_activity_wordlist">wordListActivity</string>
+    <string name="title_activity_wordlist" translatable="false">wordListActivity</string>
+    <string name="addWordError">Word can\'t be empty a</string>
+    <string name="editWord">Edit word</string>
+    <string name="delete">Delete</string>
 
 </resources>

@@ -32,15 +32,11 @@ public class Word implements Serializable {
     }
 
     public void setWordNative(String wordNative){
-        if(wordNative != null){
-            this.wordNative = wordNative;
-        }
+       this.wordNative = wordNative;
     }
 
     public void setWordForeign(String wordForeign){
-        if(wordForeign != null){
-            this.wordForeign = wordForeign;
-        }
+        this.wordForeign = wordForeign;
     }
 
     public void setKnowledge(int knowledge){

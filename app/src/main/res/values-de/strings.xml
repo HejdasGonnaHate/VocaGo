@@ -19,4 +19,7 @@
     <string name="evaluation">Auswertung</string>
     <string name="unitAddText">wurde hinzugefügt</string>
     <string name="unitDeleteText">wurde gelöscht</string>
+    <string name="addWordError">Wort darf nicht leer sein</string>
+    <string name="delete">Löschen</string>
+    <string name="editWord">Wort bearbeiten</string>
 </resources>

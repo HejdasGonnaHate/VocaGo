@@ -22,8 +22,24 @@ public class Unit implements Serializable{
        this.name = name;
     }
 
-    public void addWord(Word w){
-        woerter.add(w);
+    public boolean addWord(Word w){
+        boolean wordOK = false;
+        for(char c : w.getWordForeign().toCharArray()){
+            if(c != ' '){
+                wordOK = true;
+            }
+        }
+        boolean wordOK2 = false;
+        for(char c : w.getWordNative().toCharArray()){
+            if(c != ' '){
+                wordOK2 = true;
+            }
+        }
+        if(wordOK&&wordOK2){
+            woerter.add(w);
+            return true;
+        }
+        else return false;
     }
     public void removeWord(int index){
         woerter.remove(index);
