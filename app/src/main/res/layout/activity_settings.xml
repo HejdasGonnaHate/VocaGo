@@ -29,7 +29,7 @@
         android:background="@drawable/border_item_bottom"
         android:onClick="wordlistClick"
         android:clickable="true"
-        android:id="@+id/hurensohntest">
+        android:id="@+id/settingslist">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"

@@ -1,9 +1,11 @@
 package at.spengergasse.vocago;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +58,8 @@ public class UnitWordlistActivity extends AppCompatActivity {
 
         layout = (LinearLayout) findViewById(R.id.wordListLayout);
         fillWordList();
+
+        changeStatusBarColor();
 
     }
 
@@ -132,6 +138,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
         FrameLayout frameLayoutButton = new FrameLayout(getApplicationContext());
         frameLayoutButton.setPadding(72000 / width, 0, 72000 / width, 0); //Abstand der Combobox nach links und rechts;
         Button b = new Button(getApplicationContext());
+
         b.setText(getString(R.string.delete));
         frameLayoutButton.addView(b);
         linearLayout.addView(frameLayoutButton);
@@ -149,6 +156,15 @@ public class UnitWordlistActivity extends AppCompatActivity {
                 finish();
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "'" + w.getWordForeign() + "' " + getString(R.string.unitDeleteText), Toast.LENGTH_SHORT).show();
+                try {
+                    FileOutputStream fos = openFileOutput("units.dat",getApplicationContext().MODE_PRIVATE);
+                    ObjectOutputStream oos = new ObjectOutputStream(fos);   //Die Liste wird wieder abgespeichert und überschreibt die Alte
+                    oos.writeObject(MainActivity.unitArray);
+                    oos.close();
+                }
+                catch(Exception exc){
+                    // Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -181,6 +197,16 @@ public class UnitWordlistActivity extends AppCompatActivity {
                     MainActivity.unitArray.get(index).addWord(w);
 
                     fillWordList();
+
+                    try {
+                        FileOutputStream fos = openFileOutput("units.dat",getApplicationContext().MODE_PRIVATE);
+                        ObjectOutputStream oos = new ObjectOutputStream(fos);   //Die Liste wird wieder abgespeichert und überschreibt die Alte
+                        oos.writeObject(MainActivity.unitArray);
+                        oos.close();
+                    }
+                    catch(Exception exc){
+                        // Toast.makeText(getApplicationContext(),exc.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 } else
                     Toast.makeText(getApplicationContext(), getString(R.string.addWordError), Toast.LENGTH_SHORT).show();
             }
@@ -194,6 +220,11 @@ public class UnitWordlistActivity extends AppCompatActivity {
             }
         });
         builder.show(); //Fenster anzeigen
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void changeStatusBarColor(){
+        getWindow().setStatusBarColor(0xFF5482a1);
     }
 
 }

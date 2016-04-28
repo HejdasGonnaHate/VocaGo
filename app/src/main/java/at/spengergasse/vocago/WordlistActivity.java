@@ -1,7 +1,9 @@
 package at.spengergasse.vocago;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +39,8 @@ public class WordlistActivity extends AppCompatActivity {
 
         layout = (LinearLayout) findViewById(R.id.unitListLayout);
         fillUnitList();
+
+        changeStatusBarColor();
     }
 
     private void backButton(){
@@ -62,6 +66,11 @@ public class WordlistActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void changeStatusBarColor(){
+        getWindow().setStatusBarColor(0xFF5482a1);
     }
 
 }

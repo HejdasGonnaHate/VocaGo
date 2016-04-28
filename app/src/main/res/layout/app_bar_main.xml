@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="70dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,66 +95,63 @@
                     />
             </LinearLayout>
         </FrameLayout>
-        <TextView
-            android:id="@+id/textViewTop"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:textSize="22dp"
-            android:gravity="center"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/border_textview"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="="
-            android:textSize="22dp"
-            android:layout_marginTop="10dp"
-            />
-
-        <TextView
-            android:id="@+id/textViewBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:textSize="22dp"
-            android:gravity="center"
-            android:background="@drawable/border_textview"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="10dp"/>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom="20dp">
+            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
-                <Button
-                    android:id="@+id/nextButton"
-                    android:layout_width="120dp"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/textViewTop"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/next"
-                    android:layout_gravity="center|bottom"
-                    android:layout_marginBottom="10dp"
-                    android:onClick="nextClick"/>
-                <Button
-                    android:layout_width="120dp"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="22dp"
+                    android:gravity="center"
+                    android:layout_marginLeft="50dp"
+                    android:background="@drawable/border_textview"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/evaluation"
-                    android:layout_gravity="center|bottom"
-                    android:onClick="evaluationClick"/>
+                    android:text="="
+                    android:textSize="22dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textViewBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="22dp"
+                    android:gravity="center"
+                    android:background="@drawable/border_textview"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
+        </ScrollView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
         </FrameLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        android:layout_gravity="center|bottom"
+        android:onClick="nextClick"
+        android:layout_marginBottom="20dp"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -163,9 +161,5 @@
         android:src="@drawable/ic_add_24dp"
         android:onClick="addWordClick"
         />
-
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>
