@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -29,12 +28,36 @@
         android:background="@drawable/border_item_bottom"
         android:onClick="wordlistClick"
         android:clickable="true"
-        android:id="@+id/settingslist">
+        android:id="@+id/wordList">
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:text="Wörterliste"
+            android:text="@string/wordList"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_right_24dp"
+            android:paddingRight="10dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_item_bottom"
+        android:onClick="evaluationClick"
+        android:clickable="true"
+        android:id="@+id/evaluationList">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/evaluation"
             android:textSize="20sp"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"

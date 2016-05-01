@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity{
     int height;
@@ -31,8 +32,10 @@ public class SettingsActivity extends AppCompatActivity{
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         height = displaymetrics.heightPixels;
 
-        LinearLayout layout = (LinearLayout)findViewById(R.id.settingslist);
-        layout.setMinimumHeight(height/10);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.wordList);
+        layout.setMinimumHeight(height / 10);
+        layout = (LinearLayout)findViewById(R.id.evaluationList);
+        layout.setMinimumHeight(height / 10);
 
         changeStatusBarColor();
     }
@@ -46,8 +49,12 @@ public class SettingsActivity extends AppCompatActivity{
         startActivity(nextScreen);
     }
 
+    public void evaluationClick(View view){
+        //TODO
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeStatusBarColor(){
-       getWindow().setStatusBarColor(0x5482a1);
+       getWindow().setStatusBarColor(0xFF5482a1);
     }
 }

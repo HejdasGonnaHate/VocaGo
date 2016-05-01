@@ -13,7 +13,6 @@
     <string name="manageUnit">Manage unit</string>
     <string name="deleteuniterror">You need at least one unit</string>
     <string name="newUnit">New unit</string>
-    <string name="renameError">Please select a name with less than 17 characters</string>
     <string name="addWord">Add word</string>
     <string name="cancel">Cancel</string>
     <string name="foreignWord">Foreign word</string>
@@ -24,8 +23,9 @@
     <string name="unitAddText">has been added</string>
     <string name="unitDeleteText">has been deleted</string>
     <string name="title_activity_wordlist" translatable="false">wordListActivity</string>
-    <string name="addWordError">Word can\'t be empty a</string>
+    <string name="addWordError">Word can\'t be empty</string>
     <string name="editWord">Edit word</string>
     <string name="delete">Delete</string>
+    <string name="wordList">Wordlist</string>
 
 </resources>

@@ -222,6 +222,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
         builder.show(); //Fenster anzeigen
     }
 
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeStatusBarColor(){
         getWindow().setStatusBarColor(0xFF5482a1);

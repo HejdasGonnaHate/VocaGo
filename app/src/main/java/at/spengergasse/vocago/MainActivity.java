@@ -198,9 +198,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void evaluationClick(View view){
-
-    }
 
     public void feedbackRedClick(View view){
         if(currentWord != null){

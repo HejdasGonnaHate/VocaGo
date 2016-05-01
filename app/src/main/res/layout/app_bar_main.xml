@@ -42,59 +42,59 @@
         />
 
         <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <ImageView
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_box_24dp"
+            android:background="@drawable/check_box_bg"
+            android:visibility="invisible"
+            />
 
-            <ImageView
-                android:id="@+id/checkBox"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsZero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_box_24dp"
-                android:background="@drawable/check_box_bg"
-                android:visibility="invisible"
+                app:backgroundTint="@color/colorRed"
+                android:layout_marginRight="30dp"
+                android:onClick="feedbackRedClick"
                 />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorOrange"
+                android:layout_marginRight="30dp"
+                android:onClick="feedbackOrangeClick"
+                />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorLime"
+                android:layout_marginRight="30dp"
+                android:onClick="feedbackLimeClick"
+                />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/pointsZero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="@color/colorRed"
-                    android:layout_marginRight="30dp"
-                    android:onClick="feedbackRedClick"
-                    />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pointsThree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorGreen"
+                android:onClick="feedbackGreenClick"
+                />
+        </LinearLayout>
+    </FrameLayout>
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/pointsOne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="@color/colorOrange"
-                    android:layout_marginRight="30dp"
-                    android:onClick="feedbackOrangeClick"
-                    />
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/pointsTwo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="@color/colorLime"
-                    android:layout_marginRight="30dp"
-                    android:onClick="feedbackLimeClick"
-                    />
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/pointsThree"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:backgroundTint="@color/colorGreen"
-                    android:onClick="feedbackGreenClick"
-                    />
-            </LinearLayout>
-        </FrameLayout>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
