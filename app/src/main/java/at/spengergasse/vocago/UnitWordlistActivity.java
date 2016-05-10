@@ -60,7 +60,6 @@ public class UnitWordlistActivity extends AppCompatActivity {
         fillWordList();
 
         changeStatusBarColor();
-
     }
 
     private void backButton(){
@@ -95,7 +94,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
         builder.setTitle(getString(R.string.editWord)); //Titel wird gesetzt
 
         FrameLayout layout = new FrameLayout(getApplicationContext()); //Framelayout für das Padding der Elemente
-        layout.setPadding(28800 / width, 7200 / width, 28800 / width, 0); //Padding des FrameLayout
+        layout.setPadding(width / 18, width / 72, width / 18, 0); //Padding des FrameLayout
 
         LinearLayout linearLayout = new LinearLayout(getApplicationContext()); //LinearLayout zum anordnen der Elemente
         linearLayout.setOrientation(LinearLayout.VERTICAL); //Vertikale Orientierung für das Linear Layout
@@ -108,7 +107,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
 
 
         FrameLayout frameLayoutTrans = new FrameLayout(getApplicationContext()); //Neues Framelayout für den Abstand des Mittleren edittexts nach oben und unten
-        frameLayoutTrans.setPadding(0,14400/width,0,3600/width); //Setzten des Abstandes
+        frameLayoutTrans.setPadding(0,width/36,0,width/144); //Setzten des Abstandes
 
         final EditText inputTranslation = new EditText(this); //Textfeld zum eingeben der Übersetzung
         inputTranslation.setText(w.getWordNative());
@@ -121,7 +120,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
             unitNameList.add(u.getName()); //Liste wird befüllt
         }
         FrameLayout frameLayoutSpinner = new FrameLayout(getApplicationContext()); //Neues Framelayout für die ComboBox mit den Unitname
-        frameLayoutSpinner.setPadding(72000 / width, 0, 72000 / width, 0); //Abstand der Combobox nach links und rechts
+        frameLayoutSpinner.setPadding(width/(72/10), 0, width/(72/10), 0); //Abstand der Combobox nach links und rechts
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList); //Adapter erstellen, um die Daten in die ComboBox zu übertragen und ein Layout für die Items zu setzen
         final Spinner inputUnit = new Spinner(this); //Neuen Spinner (ComboBox) erstellen
@@ -136,7 +135,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
         linearLayout.addView(frameLayoutSpinner);  //FrameLayout dem LinearLayout hinzufügen
 
         FrameLayout frameLayoutButton = new FrameLayout(getApplicationContext());
-        frameLayoutButton.setPadding(72000 / width, 0, 72000 / width, 0); //Abstand der Combobox nach links und rechts;
+        frameLayoutButton.setPadding(width/(72/10), 0, width/(72/10), 0); //Abstand der Combobox nach links und rechts;
         Button b = new Button(getApplicationContext());
 
         b.setText(getString(R.string.delete));
@@ -225,7 +224,7 @@ public class UnitWordlistActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeStatusBarColor(){
-        getWindow().setStatusBarColor(0xFF5482a1);
+        getWindow().setStatusBarColor(0xFF435e70);
     }
 
 }

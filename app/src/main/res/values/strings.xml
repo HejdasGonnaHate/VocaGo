@@ -26,6 +26,8 @@
     <string name="addWordError">Word can\'t be empty</string>
     <string name="editWord">Edit word</string>
     <string name="delete">Delete</string>
-    <string name="wordList">Wordlist</string>
+    <string name="wordList">Dictionary</string>
+    <string name="wordRepitition">Word repititions</string>
+    <string name="words">words</string>
 
 </resources>

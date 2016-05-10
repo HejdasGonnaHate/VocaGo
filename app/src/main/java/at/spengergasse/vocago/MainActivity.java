@@ -1,8 +1,10 @@
 package at.spengergasse.vocago;
 
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.DisplayMetrics;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static ArrayList<Unit> unitArray = new ArrayList<Unit>();
+    public static ArrayList<Integer> repArray = new ArrayList<>();
     NavigationView navigationView;
     int selectedUnitIndex = 0;
     int width; //Die Displaybreite
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity
     TextView textBottom;
     Word currentWord; //Das aktuelle Wort
     boolean bothWords = true;
+
+    ArrayList<Word> lastWords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +68,6 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button nextButton = (Button) findViewById(R.id.nextButton);
-
         //Setzt die Variablen width und height ja auf die Displaybreite und Displayhöhe des Handys
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -75,6 +78,8 @@ public class MainActivity extends AppCompatActivity
         textBottom = (TextView)findViewById(R.id.textViewBottom);
 
         fillUnitArray();
+        fillRepArray();
+        changeStatusBarColor();
     }
 
     public void makeToast(String text){
@@ -123,7 +128,7 @@ public class MainActivity extends AppCompatActivity
         builder.setTitle(getString(R.string.addWord)); //Titel wird gesetzt
 
         FrameLayout layout = new FrameLayout(getApplicationContext()); //Framelayout für das Padding der Elemente
-        layout.setPadding(28800 / width, 7200 / width, 28800 / width, 0); //Padding des FrameLayout
+        layout.setPadding(width / 18, width / 72, width / 18, 0); //Padding des FrameLayout
 
         LinearLayout linearLayout = new LinearLayout(getApplicationContext()); //LinearLayout zum anordnen der Elemente
         linearLayout.setOrientation(LinearLayout.VERTICAL); //Vertikale Orientierung für das Linear Layout
@@ -135,7 +140,7 @@ public class MainActivity extends AppCompatActivity
 
 
         FrameLayout frameLayoutTrans = new FrameLayout(getApplicationContext()); //Neues Framelayout für den Abstand des Mittleren edittexts nach oben und unten
-        frameLayoutTrans.setPadding(0,14400/width,0,3600/width); //Setzten des Abstandes
+        frameLayoutTrans.setPadding(0,width/36,0,width/144); //Setzten des Abstandes
 
         final EditText inputTranslation = new EditText(this); //Textfeld zum eingeben der Übersetzung
         inputTranslation.setHint(getString(R.string.translation));
@@ -147,7 +152,7 @@ public class MainActivity extends AppCompatActivity
             unitNameList.add(u.getName()); //Liste wird befüllt
         }
         FrameLayout frameLayoutSpinner = new FrameLayout(getApplicationContext()); //Neues Framelayout für die ComboBox mit den Unitname
-        frameLayoutSpinner.setPadding(72000 / width, 0, 72000 / width, 0); //Abstand der Combobox nach links und rechts
+        frameLayoutSpinner.setPadding(width/(72/10), 0, width/(72/10), 0); //Abstand der Combobox nach links und rechts
 
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList); //Adapter erstellen, um die Daten in die ComboBox zu übertragen und ein Layout für die Items zu setzen
         final Spinner inputUnit = new Spinner(this); //Neuen Spinner (ComboBox) erstellen
@@ -183,13 +188,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void nextClick(View view){
-        if(unitArray.get(selectedUnitIndex).getWordArray().size() > 0){
+        int unitSize = unitArray.get(selectedUnitIndex).getWordArray().size();
+        if(unitSize > 0){
            if(bothWords){
                currentWord = unitArray.get(selectedUnitIndex).getRandomWord();
+               int index = 0;
+               while(lastWords.contains(currentWord)){
+                   currentWord = unitArray.get(selectedUnitIndex).getRandomWord();
+                   index ++;
+                   if(index > 40) break;
+               }
                textTop.setText(currentWord.getWordForeign());
                textBottom.setText("");
                bothWords = false;
                addCheckmark();
+               lastWords.add(currentWord);
+               if(unitSize<=10){
+                   if(lastWords.size() >= unitSize) lastWords.remove(0);
+               }
+               else if (unitSize<=20) {
+                   if (lastWords.size() >= 10) lastWords.remove(0);
+               }
+               else if (unitSize<=30) {
+                   if (lastWords.size() >= 20) lastWords.remove(0);
+               }
+               else{
+                   if (lastWords.size() >= 30) lastWords.remove(0);
+               }
+
            }
            else{
                textBottom.setText(currentWord.getWordNative());
@@ -197,7 +223,6 @@ public class MainActivity extends AppCompatActivity
            }
         }
     }
-
 
     public void feedbackRedClick(View view){
         if(currentWord != null){
@@ -359,7 +384,7 @@ public class MainActivity extends AppCompatActivity
             builder.setTitle(getString(R.string.renameUnit)); //Titel des Fensters setzen
 
             FrameLayout layout = new FrameLayout(getApplicationContext()); //Neues FrameLayout erstellen um ein Padding für das Textfeld zu haben
-            layout.setPadding(28800/width,7200/width,28800/width,0); //Padding je nach Bildschirmgröße setzen
+            layout.setPadding(width/18, width/72, width/18, 0); //Padding je nach Bildschirmgröße setzen
 
             final EditText input = new EditText(this); //Neues Textfeld erstellen
             input.setText(unitArray.get(selectedUnitIndex).getName()); //Den Text auf den Namen der aktuellen Unit setzen
@@ -409,4 +434,34 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void changeStatusBarColor(){
+        getWindow().setStatusBarColor(0xFF435e70);
+    }
+
+    public void fillRepArray(){
+        try {
+            FileInputStream fio = openFileInput("reps.dat");
+            ObjectInputStream ois = new ObjectInputStream(fio);
+            repArray = (ArrayList<Integer>) ois.readObject();
+        }
+        catch(Exception exc){
+            try {
+                repArray.add(0);
+                repArray.add(10);
+                repArray.add(20);
+                repArray.add(30);
+
+                FileOutputStream fos = openFileOutput("reps.dat",getApplicationContext().MODE_PRIVATE);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(repArray);
+                oos.close();
+
+                fillRepArray();
+            }
+            catch(Exception exc2){}
+        }
+    }
+
 }

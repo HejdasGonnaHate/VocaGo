@@ -9,7 +9,6 @@
     <string name="manageUnit">Unit verwalten</string>
     <string name="deleteuniterror">Es wird mindestends eine Unit benötigt</string>
     <string name="newUnit">Neue Unit</string>
-    <string name="renameError">Bitte einen Namen mit weniger als 17 Buchstaben auswählen</string>
     <string name="addWord">Wort hinzufügen</string>
     <string name="cancel">Abbrechen</string>
     <string name="foreignWord">Fremdwort</string>
@@ -22,5 +21,7 @@
     <string name="addWordError">Wort darf nicht leer sein</string>
     <string name="delete">Löschen</string>
     <string name="editWord">Wort bearbeiten</string>
-    <string name="wordList">Wörterliste</string>
+    <string name="wordList">Wörterbuch</string>
+    <string name="wordRepitition">Wortwiederholungen</string>
+    <string name="words">Wörter</string>
 </resources>

@@ -70,7 +70,7 @@ public class WordlistActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeStatusBarColor(){
-        getWindow().setStatusBarColor(0xFF5482a1);
+        getWindow().setStatusBarColor(0xFF435e70);
     }
 
 }
