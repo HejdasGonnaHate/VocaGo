@@ -24,4 +24,9 @@
     <string name="wordList">Wörterbuch</string>
     <string name="wordRepitition">Wortwiederholungen</string>
     <string name="words">Wörter</string>
+    <string name="help">Hilfe</string>
+    <string name="repError1">Bitte gib eine Nummer zwischen 0 und 10 für "11 - 20 Wörter ein"</string>
+    <string name="repError2">Bitte gib eine Nummer zwischen 0 und 20 für "21 - 30 Wörter ein"</string>
+    <string name="repError3">Bitte gib eine Nummer zwischen 0 und 30 für "31+ Wörter ein"</string>
+    <string name="repHelpText">ToDo</string>
 </resources>

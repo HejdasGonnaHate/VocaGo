@@ -29,5 +29,10 @@
     <string name="wordList">Dictionary</string>
     <string name="wordRepitition">Word repititions</string>
     <string name="words">words</string>
+    <string name="repError1">Please type in a number between 0 and 10 for "11 - 20 Words"</string>
+    <string name="repError2">Please type in a number between 0 and 20 for "21 - 30 Words"</string>
+    <string name="repError3">Please type in a number between 0 and 30 for "31+ Words"</string>
+    <string name="help">Help</string>
+    <string name="repHelpText">ToDo</string>
 
 </resources>

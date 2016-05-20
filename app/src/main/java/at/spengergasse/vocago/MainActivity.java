@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -38,8 +37,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static ArrayList<Unit> unitArray = new ArrayList<Unit>();
-    public static ArrayList<Integer> repArray = new ArrayList<>();
+    static ArrayList<Unit> unitArray = new ArrayList<Unit>();
+    static ArrayList<Integer> repArray = new ArrayList<>();
     NavigationView navigationView;
     int selectedUnitIndex = 0;
     int width; //Die Displaybreite
@@ -48,8 +47,7 @@ public class MainActivity extends AppCompatActivity
     TextView textBottom;
     Word currentWord; //Das aktuelle Wort
     boolean bothWords = true;
-
-    ArrayList<Word> lastWords = new ArrayList<>();
+    static ArrayList<Word> lastWords = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +84,6 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public void addCheckmark(){
         ImageView checkBox = (ImageView) findViewById(R.id.checkBox);
         if(currentWord!=null){
@@ -120,7 +115,6 @@ public class MainActivity extends AppCompatActivity
             checkBox.setVisibility(View.INVISIBLE);
         }
     }
-
 
     //Fenster für das erstellen eines neuen Wortes
     public void addWordClick(View view){
@@ -196,7 +190,7 @@ public class MainActivity extends AppCompatActivity
                while(lastWords.contains(currentWord)){
                    currentWord = unitArray.get(selectedUnitIndex).getRandomWord();
                    index ++;
-                   if(index > 40) break;
+                   if(index > 999) break; //Sicherheitsmaßnahme gegen Endlosschleife
                }
                textTop.setText(currentWord.getWordForeign());
                textBottom.setText("");
@@ -207,13 +201,13 @@ public class MainActivity extends AppCompatActivity
                    if(lastWords.size() >= unitSize) lastWords.remove(0);
                }
                else if (unitSize<=20) {
-                   if (lastWords.size() >= 10) lastWords.remove(0);
+                   if (lastWords.size() >= repArray.get(0)) lastWords.remove(0);
                }
                else if (unitSize<=30) {
-                   if (lastWords.size() >= 20) lastWords.remove(0);
+                   if (lastWords.size() >= repArray.get(1)) lastWords.remove(0);
                }
                else{
-                   if (lastWords.size() >= 30) lastWords.remove(0);
+                   if (lastWords.size() >= repArray.get(2)) lastWords.remove(0);
                }
 
            }
@@ -321,7 +315,6 @@ public class MainActivity extends AppCompatActivity
     private void setSelectedUnit(){
         navigationView.getMenu().getItem(selectedUnitIndex).setChecked(true);
     }
-
 
     @Override
     public void onBackPressed() {
@@ -448,10 +441,9 @@ public class MainActivity extends AppCompatActivity
         }
         catch(Exception exc){
             try {
-                repArray.add(0);
-                repArray.add(10);
-                repArray.add(20);
-                repArray.add(30);
+                repArray.add(5);
+                repArray.add(15);
+                repArray.add(25);
 
                 FileOutputStream fos = openFileOutput("reps.dat",getApplicationContext().MODE_PRIVATE);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);

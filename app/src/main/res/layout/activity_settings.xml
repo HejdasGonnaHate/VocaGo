@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/border_item_bottom"
-        android:onClick="repititionClick"
+        android:onClick="repetitionClick"
         android:clickable="true"
         android:id="@+id/repitition">
         <TextView
