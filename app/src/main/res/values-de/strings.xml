@@ -29,4 +29,9 @@
     <string name="repError2">Bitte gib eine Nummer zwischen 0 und 20 für "21 - 30 Wörter ein"</string>
     <string name="repError3">Bitte gib eine Nummer zwischen 0 und 30 für "31+ Wörter ein"</string>
     <string name="repHelpText">ToDo</string>
+    <string name="askError">Es muss mindestends eine Option ausgewählt sein</string>
+    <string name="askForeign">Übersetzung zuerst</string>
+    <string name="askTranslation">Fremdwort zuerst</string>
+    <string name="askHelpText">ToDo</string>
+    <string name="askedWords">Zuerst gezeigtes Wort</string>
 </resources>

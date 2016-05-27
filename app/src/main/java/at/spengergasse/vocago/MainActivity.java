@@ -33,6 +33,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity
     TextView textBottom;
     Word currentWord; //Das aktuelle Wort
     boolean bothWords = true;
+    boolean firstWordForeign = true;
+    static boolean askForeignWord;
+    static boolean askTranslationWord;
+    Random rnd = new Random();
     static ArrayList<Word> lastWords = new ArrayList<>();
 
     @Override
@@ -77,6 +82,7 @@ public class MainActivity extends AppCompatActivity
 
         fillUnitArray();
         fillRepArray();
+        fillWordBooleans();
         changeStatusBarColor();
     }
 
@@ -192,7 +198,11 @@ public class MainActivity extends AppCompatActivity
                    index ++;
                    if(index > 999) break; //Sicherheitsmaßnahme gegen Endlosschleife
                }
-               textTop.setText(currentWord.getWordForeign());
+               if(askForeignWord && askTranslationWord) firstWordForeign = rnd.nextBoolean();
+               else if(askTranslationWord) firstWordForeign = true;
+               else if(askForeignWord) firstWordForeign = false;
+               if(firstWordForeign) textTop.setText(currentWord.getWordForeign());
+               else textTop.setText(currentWord.getWordNative());
                textBottom.setText("");
                bothWords = false;
                addCheckmark();
@@ -212,7 +222,8 @@ public class MainActivity extends AppCompatActivity
 
            }
            else{
-               textBottom.setText(currentWord.getWordNative());
+               if(firstWordForeign)  textBottom.setText(currentWord.getWordNative());
+               else textBottom.setText(currentWord.getWordForeign());
                bothWords = true;
            }
         }
@@ -453,6 +464,39 @@ public class MainActivity extends AppCompatActivity
                 fillRepArray();
             }
             catch(Exception exc2){}
+        }
+    }
+
+    public void fillWordBooleans(){
+        try {
+            FileInputStream fio = openFileInput("askForeign.dat");
+            ObjectInputStream ois = new ObjectInputStream(fio);
+            askForeignWord = (boolean) ois.readObject();
+
+            fio = openFileInput("askTranslation.dat");
+            ois = new ObjectInputStream(fio);
+            askTranslationWord = (boolean) ois.readObject();
+        }
+        catch(Exception exc){
+            try {
+                askForeignWord = true;
+                askTranslationWord = true;
+
+                FileOutputStream fos = openFileOutput("askForeign.dat",getApplicationContext().MODE_PRIVATE);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(askForeignWord);
+                oos.close();
+
+                fos = openFileOutput("askTranslation.dat",getApplicationContext().MODE_PRIVATE);
+                oos = new ObjectOutputStream(fos);
+                oos.writeObject(askTranslationWord);
+                oos.close();
+
+                fillWordBooleans();
+            }
+            catch(Exception exc2){
+
+            }
         }
     }
 

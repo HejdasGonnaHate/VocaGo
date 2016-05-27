@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -49,6 +50,7 @@ public class SettingsActivity extends AppCompatActivity{
         findViewById(R.id.wordList).setMinimumHeight(height/10);;
         findViewById(R.id.evaluationList).setMinimumHeight(height/10);;
         findViewById(R.id.repitition).setMinimumHeight(height/10);
+        findViewById(R.id.askWords).setMinimumHeight(height/10);
 
         changeStatusBarColor();
     }
@@ -72,8 +74,6 @@ public class SettingsActivity extends AppCompatActivity{
         AlertDialog.Builder builder = new AlertDialog.Builder(this); //Neues Fenster
         builder.setTitle(getString(R.string.wordRepitition)); //Titel des Fensters setzen
 
-        //test
-
         FrameLayout layout = new FrameLayout(getApplicationContext()); //Neues FrameLayout erstellen um ein Padding für das Textfeld zu haben
         layout.setPadding(width / 15, 0, width / 15, 0); //Padding je nach Bildschirmgröße setzen
 
@@ -87,7 +87,7 @@ public class SettingsActivity extends AppCompatActivity{
 
         FrameLayout inner3 = (FrameLayout) outerLayout.getChildAt(1);
         final EditText inner3txt= (EditText)inner3.getChildAt(1);
-        inner3txt.setText(""+MainActivity.repArray.get(1));
+        inner3txt.setText("" + MainActivity.repArray.get(1));
 
         FrameLayout inner4 = (FrameLayout) outerLayout.getChildAt(2);
         final EditText inner4txt= (EditText)inner4.getChildAt(1);
@@ -95,9 +95,6 @@ public class SettingsActivity extends AppCompatActivity{
 
         layout.addView(outerLayout);
         builder.setView(layout);//Layout als Anzeige des Fensters setzen
-
-
-
 
         builder.setPositiveButton("OK", null);
         builder.setNegativeButton(getString(R.string.cancel), null);
@@ -179,11 +176,102 @@ public class SettingsActivity extends AppCompatActivity{
         mAlertDialog.show();
     }
 
+    public void askWordsClick(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this); //Neues Fenster
+        builder.setTitle(getString(R.string.askedWords)); //Titel des Fensters setzen
+
+        FrameLayout layout = new FrameLayout(getApplicationContext()); //Neues FrameLayout erstellen um ein Padding für das Textfeld zu haben
+        layout.setPadding(width / 15, 0, width / 15, 0); //Padding je nach Bildschirmgröße setzen
+
+        LayoutInflater inflater;
+        inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final LinearLayout outerLayout = (LinearLayout) inflater.inflate(R.layout.layout_askwords, null);
+
+        FrameLayout inner1 = (FrameLayout) outerLayout.getChildAt(0);
+        final CheckBox checkBoxTrans = (CheckBox) inner1.getChildAt(1);
+        checkBoxTrans.setChecked(MainActivity.askTranslationWord);
+        inner1.setMinimumHeight(width / 8);
+
+        FrameLayout inner2 = (FrameLayout) outerLayout.getChildAt(1);
+        final CheckBox checkBoxForeign = (CheckBox) inner2.getChildAt(1);
+        checkBoxForeign.setChecked(MainActivity.askForeignWord);
+        inner2.setMinimumHeight(width / 8);
+
+        layout.addView(outerLayout);
+        builder.setView(layout);//Layout als Anzeige des Fensters setzen
+
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.setNeutralButton("?", null);
+        final AlertDialog mAlertDialog = builder.create();
+        mAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        boolean gueltig = true;
+                        if(!checkBoxTrans.isChecked() && !checkBoxForeign.isChecked()) gueltig = false;
+                        if (gueltig) {
+                            MainActivity.askTranslationWord = checkBoxTrans.isChecked();
+                            MainActivity.askForeignWord = checkBoxForeign.isChecked();
+                            saveAskWords();
+                            mAlertDialog.cancel();
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), getString(R.string.askError),Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                Button b2 = mAlertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                b2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this); //Neues Fenster
+                        builder.setTitle(getString(R.string.help));
+
+                        FrameLayout layout = new FrameLayout(getApplicationContext()); //Neues FrameLayout erstellen um ein Padding für das Textfeld zu haben
+                        layout.setPadding(width / 15, width / 72, width / 15, 0); //Padding je nach Bildschirmgröße setzen
+
+                        TextView textView = new TextView(getApplicationContext());
+                        textView.setTextColor(0xFF737373);
+                        textView.setText(getString(R.string.askHelpText));
+                        layout.addView(textView);
+
+                        builder.setPositiveButton("OK", null);
+                        builder.setView(layout);
+                        builder.show();
+                    }
+                });
+            }
+        });
+        mAlertDialog.show();
+    }
+
     private void saveRepArray(){
         try{
             FileOutputStream fos = openFileOutput("reps.dat",getApplicationContext().MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(MainActivity.repArray);
+            oos.close();
+        }
+        catch(Exception exc){}
+    }
+
+    private void saveAskWords(){
+        try {
+            FileOutputStream fos = openFileOutput("askForeign.dat", getApplicationContext().MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(MainActivity.askForeignWord);
+            oos.close();
+
+            fos = openFileOutput("askTranslation.dat", getApplicationContext().MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(MainActivity.askTranslationWord);
             oos.close();
         }
         catch(Exception exc){}

@@ -34,5 +34,10 @@
     <string name="repError3">Please type in a number between 0 and 30 for "31+ Words"</string>
     <string name="help">Help</string>
     <string name="repHelpText">ToDo</string>
+    <string name="askedWords">First shown worn</string>
+    <string name="askForeign">Translation first</string>
+    <string name="askTranslation">Foreign word first</string>
+    <string name="askError">You have to select at least one option</string>
+    <string name="askHelpText">ToDo</string>
 
 </resources>

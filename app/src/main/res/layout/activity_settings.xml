@@ -93,6 +93,29 @@
             android:paddingRight="10dp"
             />
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_item_bottom"
+        android:onClick="askWordsClick"
+        android:clickable="true"
+        android:id="@+id/askWords">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/askedWords"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_right_24dp"
+            android:paddingRight="10dp"
+            />
+    </LinearLayout>
 
 </LinearLayout>
