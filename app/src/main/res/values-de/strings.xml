@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">VocaGo</string>
+    <string name="app_name">VocaGO</string>
     <string name="action_settings">Einstellungen</string>
     <string name="knowledgeText">Wie gut kennst du das Wort?</string>
     <string name="addUnit">Unit hinzufügen</string>
@@ -28,10 +28,10 @@
     <string name="repError1">Bitte gib eine Nummer zwischen 0 und 10 für "11 - 20 Wörter ein"</string>
     <string name="repError2">Bitte gib eine Nummer zwischen 0 und 20 für "21 - 30 Wörter ein"</string>
     <string name="repError3">Bitte gib eine Nummer zwischen 0 und 30 für "31+ Wörter ein"</string>
-    <string name="repHelpText">ToDo</string>
+    <string name="repHelpText">Mit dieser Option kann eingestellt werden, wie viele Wörter mindestends angezeigt werden, bevor man ein zuvor gesehenes Wort nochmal sieht. Bei weniger als 10 Wörtern kommt ein Wort erst wieder dran, nachdem bereits alle anderen auch gezeigt wurden.</string>
     <string name="askError">Es muss mindestends eine Option ausgewählt sein</string>
     <string name="askForeign">Übersetzung zuerst</string>
     <string name="askTranslation">Fremdwort zuerst</string>
-    <string name="askHelpText">ToDo</string>
+    <string name="askHelpText">Mit dieser Option kann eingestellt werden, ob zuerst das Frendwort oder die Übersetzung gezeigt werden soll. Wenn beides ausgewählt ist, wird das zuerst gezeigte Wort zufällig gewählt.</string>
     <string name="askedWords">Zuerst gezeigtes Wort</string>
 </resources>

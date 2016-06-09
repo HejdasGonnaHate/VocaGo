@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -84,6 +85,7 @@ public class MainActivity extends AppCompatActivity
         fillRepArray();
         fillWordBooleans();
         changeStatusBarColor();
+
     }
 
     public void makeToast(String text){
@@ -226,6 +228,7 @@ public class MainActivity extends AppCompatActivity
                else textBottom.setText(currentWord.getWordForeign());
                bothWords = true;
            }
+
         }
     }
 

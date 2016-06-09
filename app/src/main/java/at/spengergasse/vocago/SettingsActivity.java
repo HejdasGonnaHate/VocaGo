@@ -48,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity{
         width = displaymetrics.widthPixels;
 
         findViewById(R.id.wordList).setMinimumHeight(height/10);;
-        findViewById(R.id.evaluationList).setMinimumHeight(height/10);;
+        //findViewById(R.id.evaluationList).setMinimumHeight(height/10);;
         findViewById(R.id.repitition).setMinimumHeight(height/10);
         findViewById(R.id.askWords).setMinimumHeight(height/10);
 

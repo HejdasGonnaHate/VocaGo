@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VocaGO</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="addUnit">Añadit una unidad</string>
+    <string name="addWord">Añadit una palabra</string>
+    <string name="addWordError">Palabra no puede estar vacía</string>
+    <string name="askError">Seleccionar al menos una opción</string>
+    <string name="askForeign">Traducción primera</string>
+    <string name="askTranslation">Palabra extranjera primera</string>
+    <string name="askedWords">Destruit palabre que se muestra</string>
+    <string name="cancel">Abortar</string>
+    <string name="delete">Borrar</string>
+    <string name="deleteUnit">Borarr un unit</string>
+    <string name="deleteuniterror">Al menos una unidad</string>
+    <string name="editWord">Editar palabra</string>
+    <string name="evaluation">Evaluación</string>
+    <string name="foreignWord">Palabra Extranjera</string>
+    <string name="help">Ayudar</string>
+    <string name="knowledgeText">Qué tan bien conoce la palabra?</string>
+    <string name="manageUnit">Unidad de gestión</string>
+    <string name="means">Medio</string>
+    <string name="navigation_drawer_close" translatable="false"></string>
+    <string name="newUnit">Nueva unidad</string>
+    <string name="next">Más</string>
+    <string name="renameUnit">Unidad de cambio de nombre</string>
+    <string name="translation">Traducción</string>
+    <string name="unitAddText">Sumado</string>
+    <string name="unitDeleteText">Suprimido</string>
+    <string name="wordList">Diccionario</string>
+    <string name="wordRepitition">La repetición de palabras</string>
+    <string name="words">Palabras</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VocaGO</string>
+    <string name="action_settings">Réglage</string>
+    <string name="addUnit">Ajouter un unit</string>
+    <string name="addWord">Ajouter un mot</string>
+    <string name="addWordError">Le mot ne peut pas être vide</string>
+    <string name="askError">Séléctionner au moins une option</string>
+    <string name="askForeign">Traduction première</string>
+    <string name="askTranslation">Mot étranger première</string>
+    <string name="askedWords">Premier mot montré</string>
+    <string name="cancel">Avorter</string>
+    <string name="delete">Supprimer</string>
+    <string name="deleteUnit">Supprimer un mot</string>
+    <string name="deleteuniterror">Au moins un mot nécessaire</string>
+    <string name="editWord">Modifier un mot</string>
+    <string name="evaluation">Évaluation</string>
+    <string name="foreignWord">Mot étranger</string>
+    <string name="help">Aider</string>
+    <string name="knowledgeText">Quelle bien vous connaissez la mot</string>
+    <string name="manageUnit">Gérer un mot</string>
+    <string name="means">moyens</string>
+    <string name="newUnit">Nouveau unit</string>
+    <string name="next">Plus</string>
+    <string name="renameUnit">Rebaptiser l\'unite</string>
+    <string name="repError1"></string>
+    <string name="title_activity_wordlist" translatable="false"></string>
+    <string name="translation">Traduction</string>
+    <string name="unitAddText">Ajoutée</string>
+    <string name="unitDeleteText">Supprimées</string>
+    <string name="wordList">Dictionnaire</string>
+    <string name="wordRepitition">Répétition de mots</string>
+</resources>

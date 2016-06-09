@@ -65,6 +65,7 @@
                 app:backgroundTint="@color/colorRed"
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackRedClick"
+                android:src="@drawable/ic_smiley_sad"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -74,6 +75,7 @@
                 app:backgroundTint="@color/colorOrange"
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackOrangeClick"
+                android:src="@drawable/ic_smiley_okay"
                 />
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/pointsTwo"
@@ -82,6 +84,7 @@
                 app:backgroundTint="@color/colorLime"
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackLimeClick"
+                android:src="@drawable/ic_smiley_well"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -90,6 +93,7 @@
                 android:layout_height="wrap_content"
                 app:backgroundTint="@color/colorGreen"
                 android:onClick="feedbackGreenClick"
+                android:src="@drawable/ic_smiley_super"
                 />
         </LinearLayout>
     </FrameLayout>
