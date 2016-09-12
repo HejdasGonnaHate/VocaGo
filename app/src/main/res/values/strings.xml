@@ -38,4 +38,5 @@
     <string name="askTranslation">Foreign word first</string>
     <string name="askError">You have to select at least one option</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
