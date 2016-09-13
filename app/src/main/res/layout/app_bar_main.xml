@@ -23,14 +23,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginBottom="70dp">
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,6 +64,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackRedClick"
                 android:src="@drawable/ic_smiley_sad"
+                android:scaleType="center"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -77,7 +75,9 @@
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackOrangeClick"
                 android:src="@drawable/ic_smiley_okay"
+                android:scaleType="center"
                 />
+
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/pointsTwo"
                 android:layout_width="wrap_content"
@@ -86,6 +86,7 @@
                 android:layout_marginRight="30dp"
                 android:onClick="feedbackLimeClick"
                 android:src="@drawable/ic_smiley_well"
+                android:scaleType="center"
                 />
 
             <android.support.design.widget.FloatingActionButton
@@ -95,6 +96,7 @@
                 app:backgroundTint="@color/colorGreen"
                 android:onClick="feedbackGreenClick"
                 android:src="@drawable/ic_smiley_super"
+                android:scaleType="center"
                 />
         </LinearLayout>
     </FrameLayout>
@@ -147,33 +149,33 @@
             android:layout_height="0dp"
             android:layout_weight="1">
         </FrameLayout>
-    </LinearLayout>
-    <Button
-        android:id="@+id/nextButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/next"
-        android:layout_gravity="center|bottom"
-        android:onClick="nextClick"
-        android:layout_marginBottom="20dp"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_24dp"
-        android:onClick="addWordClick"
-        />
-    <com.google.android.gms.ads.AdView
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/nextButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/next"
+                android:layout_gravity="center"
+                android:onClick="nextClick" />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_add_24dp"
+                android:onClick="addWordClick" />
+        </FrameLayout>
+
+        <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="BANNER"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
-
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
