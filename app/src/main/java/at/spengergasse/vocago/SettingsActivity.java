@@ -5,28 +5,39 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Xml;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity{
     int height;
     int width;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +59,10 @@ public class SettingsActivity extends AppCompatActivity{
         width = displaymetrics.widthPixels;
 
         findViewById(R.id.wordList).setMinimumHeight(height/10);;
-        //findViewById(R.id.evaluationList).setMinimumHeight(height/10);;
         findViewById(R.id.repitition).setMinimumHeight(height/10);
         findViewById(R.id.askWords).setMinimumHeight(height/10);
+        findViewById(R.id.importUnit).setMinimumHeight(height/10);
+        findViewById(R.id.exportUnit).setMinimumHeight(height/10);
 
         changeStatusBarColor();
     }
@@ -252,6 +264,86 @@ public class SettingsActivity extends AppCompatActivity{
         mAlertDialog.show();
     }
 
+    public void importUnitClick(View view){
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String[] names = dir.list(
+                new FilenameFilter()
+                {
+                    public boolean accept(File dir, String name)
+                    {
+                        return name.endsWith(".vocago");
+                    }
+                });
+        for(String fileName:names){
+            try {
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+                FileInputStream fis = new FileInputStream(file);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                Unit unit = (Unit)ois.readObject();
+                MainActivity.unitArray.add(unit);
+                Toast.makeText(getApplicationContext(),unit.getName()+" wurde importiert!",Toast.LENGTH_SHORT).show();
+            }
+            catch (Exception exc){
+                //TODO
+            }
+        }
+    }
+
+    public void exportUnitClick(View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.exportUnit));
+
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setPadding(width/15, 0, width/15, 0);
+        layout.setOrientation(LinearLayout.VERTICAL); //Vertikale Orientierung für das Linear Layout
+        layout.setGravity(Gravity.CENTER); //Die Objekte werden zentriert
+
+        List<CharSequence> unitNameList= new ArrayList<>();
+        for(Unit u : MainActivity.unitArray) {
+            unitNameList.add(u.getName());
+        }
+        FrameLayout frameLayoutSpinner = new FrameLayout(getApplicationContext());
+        frameLayoutSpinner.setPadding(width/(72/10), 0, width/(72/10), 0);
+
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(getApplicationContext(),R.layout.spinner_item_layout,unitNameList);
+        final Spinner inputUnit = new Spinner(this);
+        inputUnit.setAdapter(adapter);
+        frameLayoutSpinner.addView(inputUnit);
+        layout.addView(frameLayoutSpinner);
+
+        builder.setView(layout);
+
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        final AlertDialog mAlertDialog = builder.create();
+        mAlertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = mAlertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+
+                        try {
+                            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), MainActivity.unitArray.get(inputUnit.getSelectedItemPosition()).getName()+".vocago");
+                            FileOutputStream fos = new FileOutputStream(file);
+                            ObjectOutputStream oos = new ObjectOutputStream(fos);
+                            oos.writeObject(MainActivity.unitArray.get(inputUnit.getSelectedItemPosition()));
+                            oos.close();
+                            Toast.makeText(getApplicationContext(),MainActivity.unitArray.get(inputUnit.getSelectedItemPosition()).getName()+" "+getString(R.string.exportSuccess),Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+        mAlertDialog.show();
+    }
+
     private void saveRepArray(){
         try{
             FileOutputStream fos = openFileOutput("reps.dat",getApplicationContext().MODE_PRIVATE);
@@ -259,7 +351,9 @@ public class SettingsActivity extends AppCompatActivity{
             oos.writeObject(MainActivity.repArray);
             oos.close();
         }
-        catch(Exception exc){}
+        catch(Exception exc){
+            //TODO
+        }
     }
 
     private void saveAskWords(){

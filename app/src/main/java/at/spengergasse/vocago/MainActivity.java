@@ -88,6 +88,12 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        updateUnitList();
+        super.onResume();
+    }
+
     public void makeToast(String text){
         Toast.makeText(getApplicationContext(),text,Toast.LENGTH_SHORT).show();
     }

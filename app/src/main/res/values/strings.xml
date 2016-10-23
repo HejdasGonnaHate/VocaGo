@@ -33,10 +33,15 @@
     <string name="repError2">Please type in a number between 0 and 20 for "21 - 30 Words"</string>
     <string name="repError3">Please type in a number between 0 and 30 for "31+ Words"</string>
     <string name="help">Help</string>
-    <string name="askedWords">First shown worn</string>
+    <string name="askedWords">First shown word</string>
     <string name="askForeign">Translation first</string>
     <string name="askTranslation">Foreign word first</string>
     <string name="askError">You have to select at least one option</string>
 
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="repHelpText">//TODO</string>
+    <string name="askHelpText">//TODO</string>
+    <string name="importUnit">Import Unit</string>
+    <string name="exportUnit">Export Unit</string>
+    <string name="exportSuccess">has been saved to your \'Downloads\' folder</string>
 </resources>

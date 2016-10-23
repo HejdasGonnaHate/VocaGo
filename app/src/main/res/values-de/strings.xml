@@ -34,4 +34,7 @@
     <string name="askTranslation">Fremdwort zuerst</string>
     <string name="askHelpText">Mit dieser Option kann eingestellt werden, ob zuerst das Frendwort oder die Übersetzung gezeigt werden soll. Wenn beides ausgewählt ist, wird das zuerst gezeigte Wort zufällig gewählt.</string>
     <string name="askedWords">Zuerst gezeigtes Wort</string>
+    <string name="importUnit">Unit Importieren</string>
+    <string name="exportUnit">Unit exportieren</string>
+    <string name="exportSuccess">wurde in ihren \'Downloads\' Ordner gespeichert</string>
 </resources>

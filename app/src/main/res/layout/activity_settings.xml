@@ -117,5 +117,53 @@
             android:paddingRight="10dp"
             />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_item_bottom"
+        android:onClick="importUnitClick"
+        android:clickable="true"
+        android:id="@+id/importUnit">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/importUnit"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_right_24dp"
+            android:paddingRight="10dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/border_item_bottom"
+        android:onClick="exportUnitClick"
+        android:clickable="true"
+        android:id="@+id/exportUnit">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="@string/exportUnit"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_keyboard_arrow_right_24dp"
+            android:paddingRight="10dp"
+            />
+    </LinearLayout>
 
 </LinearLayout>
