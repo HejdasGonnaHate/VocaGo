@@ -1,17 +1,20 @@
 package at.spengergasse.vocago;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Xml;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity{
+    final private int REQUEST_CODE_ASK_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 11;
+    final private int REQUEST_CODE_ASK_PERMISSIONS_READ_EXTERNAL_STORAGE = 12;
     int height;
     int width;
 
@@ -65,6 +70,32 @@ public class SettingsActivity extends AppCompatActivity{
         findViewById(R.id.exportUnit).setMinimumHeight(height/10);
 
         changeStatusBarColor();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS_WRITE_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    exportUnitClickExecute();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(this, "WRITE_EXTERNAL_STORAGE denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case REQUEST_CODE_ASK_PERMISSIONS_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    importUnitClickExecute();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(this, "READ_EXTERNAL_STORAGE denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     private void backButton(){
@@ -265,6 +296,18 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     public void importUnitClick(View view){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (this.checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS_READ_EXTERNAL_STORAGE);
+            } else {
+                importUnitClickExecute();
+            }
+        } else {
+            importUnitClickExecute();
+        }
+    }
+
+    public void importUnitClickExecute(){
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         String[] names = dir.list(
                 new FilenameFilter()
@@ -290,6 +333,18 @@ public class SettingsActivity extends AppCompatActivity{
     }
 
     public void exportUnitClick(View view){
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (this.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+            } else {
+                exportUnitClickExecute();
+            }
+        } else {
+            exportUnitClickExecute();
+        }
+    }
+
+    public void exportUnitClickExecute(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.exportUnit));
 
@@ -373,6 +428,6 @@ public class SettingsActivity extends AppCompatActivity{
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void changeStatusBarColor(){
-       getWindow().setStatusBarColor(0xFF435e70);
+        getWindow().setStatusBarColor(0xFF435e70);
     }
 }
